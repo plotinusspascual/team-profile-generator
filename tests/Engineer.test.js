@@ -8,7 +8,7 @@ describe("Engineer", () => {
   });
 
   describe("getGithub", () => {
-    it("Should return Manager instead of Employee", () => {
+    it("Should get Github", () => {
       const github = "plotinusspascual";
       const engineer = new Engineer("Jose", 2, "plotinusspascual@gmail.com", github);
       expect(engineer.getGithub()).toBe(github);
