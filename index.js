@@ -106,28 +106,27 @@ function addEmployee(){
         name: "confirm"
       }
     ])
-    .then(function({name, id, email, role, github, school}){
+    .then(function({name, id, email, role, github, school, confirm}){
       let employee;
-
       if(role === "Engineer"){
         employee = new Engineer(name, id, email, github);
       }else if(role === "Intern"){
         employee = new Intern(name, id, email, school);
       }
       team.push(employee);
-      
-    })
-    // WHEN I decide to finish building my team
-    // THEN I exit the application, and the HTML is generated
-    .then(function(confirm){
+      console.log(confirm);
       if(confirm === "yes"){
         addEmployee();
       }else{
-        console.log(team);
         generateHTML(team);
         writeFile(generateHTML(team));
       }
-    });
+    })
+    // WHEN I decide to finish building my team
+    // THEN I exit the application, and the HTML is generated
+  
+      
+    
 };
 
 function writeFile(data){
