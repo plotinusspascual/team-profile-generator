@@ -5,47 +5,54 @@ const Manager = require("./lib/Manager");
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+// Holds the team members info
+const team = [];
 
 // GIVEN a command-line application that accepts user input
+inquirer
+  .prompt([
+  // WHEN I start the application
+  // THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
+    {
+      type: "input",
+      message: "Enter team manager's name: ",
+      name: "name"
+    },
+    {
+      type: "input",
+      message: "Enter team manager's employee ID: ",
+      name: "id"
+    },
+    {
+      type: "input",
+      message: "Enter team manager's email: ",
+      name: "email"
+    },
+    {
+      type: "input",
+      message: "Enter team manager's office number: ",
+      name: "officeNumber"
+    },
+  // WHEN I enter the team manager’s name, employee ID, email address, and office number
+  // THEN I am presented with a menu with the option to add an engineer or an intern or 
+  //    to finish building my team
+    {
+      type: "list",
+      message: "What team member role do you want to add? ",
+      choices: ["Engineer", "Intern"],
+      name: "role"
+    }
+  ])
+  .then(function({name, id, email, officeNumber}) {
+    let manager;
 
-inquirer.prompt([
-// WHEN I start the application
-// THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
-  {
-    type: "input",
-    message: "Enter team manager's name: ",
-    name: "manager"
-  },
-  {
-    type: "input",
-    message: "Enter team manager's employee ID: ",
-    name: "id"
-  },
-  {
-    type: "input",
-    message: "Enter team manager's email: ",
-    name: "email"
-  },
-  {
-    type: "input",
-    message: "Enter team manager's office number: ",
-    name: "officeNumber"
-  },
-// WHEN I enter the team manager’s name, employee ID, email address, and office number
-// THEN I am presented with a menu with the option to add an engineer or an intern or 
-//    to finish building my team
-  {
-    type: "list",
-    message: "What team member role do you want to add? ",
-    choices: ["Engineer", "Intern"],
-    name: "role"
-  }
-])
+    manager = new Manager(name, id, email, officeNumber);
+    console.log(manager);
+    team.push(manager);
+  })
 // WHEN I select the engineer option
 // THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, 
-//    and I am taken back to the menu
-
-
+  //    and I am taken back to the menu  
 // WHEN I select the intern option
 // THEN I am prompted to enter the intern’s name, ID, email, and school, 
 //    and I am taken back to the menu
