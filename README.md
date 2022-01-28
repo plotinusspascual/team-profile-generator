@@ -40,16 +40,16 @@ How to view the project:
 - You now have a generated html page that showcases your Team!
 
 ## Walkthrough Video
-- [Walkthrough Video]()
+- [Walkthrough Video](https://youtu.be/8iz_tU1gigo)
 
 ## Screenshots
 Terminal Prompts
 
-![alt_text]()
+![alt_text](/images/terminal-inputs.PNG)
 
 Output Results
 
-![alt_text]()
+![alt_text](/images/output-html-demo.PNG)
 ## License
 Unlicense
 ## Github
