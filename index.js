@@ -5,6 +5,7 @@ const Manager = require("./lib/Manager");
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+
 // Holds the team members info
 const team = [];
 
@@ -96,6 +97,12 @@ function addEmployee(){
         message: "Enter intern's school: ",
         name: "school",
         when: (input) => input.role === "Intern"
+      },
+      {
+        type: "list",
+        message: "Would you like to add more members?",
+        choices: ["yes", "no"],
+        name: "confirm"
       }
     ])
     .then(function({name, id, email, role, github, school}){
@@ -108,15 +115,23 @@ function addEmployee(){
         employee = new Intern(name, id, email, school);
         console.log(employee);
       }
-
       team.push(employee);
+      addEmployee(team);
     })
+    // WHEN I decide to finish building my team
+    // THEN I exit the application, and the HTML is generated
+    .then(function(confirm){
+      if(confirm === "yes"){
+        addEmployee();
+      }else{
+        exit();
+      }
+    });
 }
 
-
-// WHEN I decide to finish building my team
-// THEN I exit the application, and the HTML is generated
-
+function exit(){
+  console.log("exited..");
+}
 
 // WHEN I click on an email address in the HTML
 // THEN my default email program opens and populates the TO field of the email with the address
