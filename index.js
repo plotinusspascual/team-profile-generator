@@ -2,6 +2,8 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
+const generateHTML = require('./src/generateHTML');
+
 const inquirer = require('inquirer');
 const fs = require('fs');
 
@@ -9,9 +11,9 @@ const fs = require('fs');
 // Holds the team members info
 const team = [];
 
-addManager();
+
 // GIVEN a command-line application that accepts user input
-function addManager(){
+function addManager(){  
   inquirer
     .prompt([
     // WHEN I start the application
@@ -37,15 +39,14 @@ function addManager(){
         name: "officeNumber"
       },
     ])
-    .then(function({name, id, email, officeNumber}) {
+    .then(function({name, id, email, officeNumber, role}) {
       let manager;
-
-      manager = new Manager(name, id, email, officeNumber);
-      console.log(manager);
+      role = "manager";
+      manager = new Manager(name, id, email, officeNumber, role);
       team.push(manager);
     })
-    .then(addEmployee)
-}    
+    .then(addEmployee);
+};    
 // WHEN I select the engineer option
 // THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, 
   //    and I am taken back to the menu  
@@ -56,7 +57,7 @@ function addManager(){
   // WHEN I enter the team manager’s name, employee ID, email address, and office number
   // THEN I am presented with a menu with the option to add an engineer or an intern or 
   //    to finish building my team  
-function addEmployee(){
+function addEmployee(){  
   inquirer
     .prompt([
       // WHEN I select the engineer option
@@ -110,33 +111,34 @@ function addEmployee(){
 
       if(role === "Engineer"){
         employee = new Engineer(name, id, email, github);
-        console.log(employee);
       }else if(role === "Intern"){
         employee = new Intern(name, id, email, school);
-        console.log(employee);
       }
       team.push(employee);
-      addEmployee(team);
+      
     })
     // WHEN I decide to finish building my team
     // THEN I exit the application, and the HTML is generated
     .then(function(confirm){
       if(confirm === "yes"){
-        addEmployee();
+        addEmployee(team);
       }else{
-        exit();
+        console.log(team);
+        generateHTML(team);
+        writeFile(generateHTML(team));
       }
     });
-}
+};
 
-function exit(){
-  console.log("exited..");
-}
+function writeFile(data){
+  fs.writeFile('./dist/index.html', data, err => {
+      if (err) {
+          console.log(err);
+          return;
+      } else {
+          console.log("Sucess!");
+      }
+  })
+};
 
-// WHEN I click on an email address in the HTML
-// THEN my default email program opens and populates the TO field of the email with the address
-// WHEN I click on the GitHub username
-// THEN that GitHub profile opens in a new tab
-
-// WHEN I am prompted for my team members and their information
-// THEN an HTML file is generated that displays a nicely formatted team roster based on user input
+addManager()
