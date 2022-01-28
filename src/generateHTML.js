@@ -7,7 +7,7 @@
 // THEN an HTML file is generated that displays a nicely formatted team roster based on user input
 const generateManager = function(manager){
   return `
-  <div class="container">
+  <div class="container col-4">
     <div id="manager">
     <h2>${manager.name}</h2>
       <h3>Manager</h3>
@@ -21,10 +21,10 @@ const generateManager = function(manager){
 
 const generateEngineer = function(engineer){
   return `
-  <div class="container">
+  <div class="container col-4">
     <div id="engineer">
     <h2>${engineer.name}</h2>
-      <h3>Manager</h3>
+      <h3>Engineer</h3>
       <p class="id">Employee ID: ${engineer.id}</p>
       <p class="email">Email: <a href="mailto:${engineer.email}">${engineer.email}</a></p>
       <p class="github">Github: <a href="https://github.com/${engineer.github}">${engineer.github}</a></p>
@@ -35,10 +35,10 @@ const generateEngineer = function(engineer){
 
 const generateIntern = function(intern){
   return `
-  <div class="container">
+  <div class="container col-4">
     <div id="intern">
     <h2>${intern.name}</h2>
-      <h3>Manager</h3>
+      <h3>Intern</h3>
       <p class="id">Employee ID: ${intern.id}</p>
       <p class="email">Email: <a href="mailto:${intern.email}">${intern.email}</a></p>
       <p class="office">School: ${intern.school}</p>
@@ -80,20 +80,25 @@ const generate = function(employeeCards){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>My Team</title>
   </head>
   <body>
     <header>
-      <div class="navbar">
+      <div class="jumbotron text-center">
         <h1>The Team</h1>
       </div>
     </header>
     <main>
       <div class="container">
-        ${employeeCards}
+        <div class="row justify-content-center">
+          ${employeeCards}
+        </div>
       </div>
     </main>
   </body>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   </html>`;
 } 
 module.exports = generateHTML;      

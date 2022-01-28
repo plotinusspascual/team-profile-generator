@@ -121,7 +121,7 @@ function addEmployee(){
     // THEN I exit the application, and the HTML is generated
     .then(function(confirm){
       if(confirm === "yes"){
-        addEmployee(team);
+        addEmployee();
       }else{
         console.log(team);
         generateHTML(team);
